@@ -9,10 +9,8 @@
 
 
 # 1. Giới Thiệu:
-IStore là nền tảng thương mại điện tử chuyên cung cấp các sản phẩm chính hãng của Apple như iPhone, iPad, MacBook, Apple Watch, AirPods, cùng với các phụ kiện tương thích. Website hỗ trợ người dùng dễ dàng tìm kiếm, xem chi tiết sản phẩm, thêm vào giỏ hàng và thanh toán trực tuyến. Website có chứn năng phân quyền admin và user, admin có chức năng quản trị hệ thống, user có chức năng tìm kiếm, thêm vào giỏ hàng và mua sản phẩm.
+IStore là nền tảng thương mại điện tử chuyên cung cấp các sản phẩm chính hãng của Apple như iPhone, iPad, MacBook, Apple Watch, AirPods, cùng với các phụ kiện tương thích. Website hỗ trợ người dùng dễ dàng tìm kiếm, xem chi tiết sản phẩm, thêm vào giỏ hàng và thanh toán trực tuyến. 
 
-
-2. 
 
 
 
