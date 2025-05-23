@@ -1,0 +1,68 @@
+/* Basic styling for e-commerce plugin */
+.simple-ecommerce-cart table,
+.simple-ecommerce-checkout table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.simple-ecommerce-cart th,
+.simple-ecommerce-cart td,
+.simple-ecommerce-checkout th,
+.simple-ecommerce-checkout td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.simple-ecommerce-cart th,
+.simple-ecommerce-checkout th {
+    background-color: #f5f5f5;
+}
+
+.cart-actions {
+    margin-top: 20px;
+    text-align: right;
+}
+
+.cart-actions .button,
+.simple-ecommerce-checkout .button,
+.simple-ecommerce-login .button,
+.simple-ecommerce-register .button {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #0073aa;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 3px;
+    margin-left: 10px;
+}
+
+.cart-actions .button:hover,
+.simple-ecommerce-checkout .button:hover,
+.simple-ecommerce-login .button:hover,
+.simple-ecommerce-register .button:hover {
+    background-color: #005177;
+}
+
+/* Form styling */
+.form-row {
+    margin-bottom: 15px;
+}
+
+.form-row label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-row input[type="text"],
+.form-row input[type="email"],
+.form-row input[type="password"],
+.form-row input[type="number"],
+.form-row textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
