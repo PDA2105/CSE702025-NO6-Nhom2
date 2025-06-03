@@ -1,6 +1,4 @@
 <?php
-// filepath: includes/views/public/register.php
-
 // Check if user is already logged in
 if (is_user_logged_in()) {
     echo '<script>window.location.href="' . esc_url(home_url('/my-account/')) . '";</script>';

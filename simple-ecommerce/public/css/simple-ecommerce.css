@@ -45,24 +45,5 @@
     background-color: #005177;
 }
 
-/* Form styling */
-.form-row {
-    margin-bottom: 15px;
-}
 
-.form-row label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-}
 
-.form-row input[type="text"],
-.form-row input[type="email"],
-.form-row input[type="password"],
-.form-row input[type="number"],
-.form-row textarea {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 3px;
-}

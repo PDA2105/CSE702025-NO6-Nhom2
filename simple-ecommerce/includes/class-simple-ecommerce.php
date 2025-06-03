@@ -1,6 +1,4 @@
 <?php
-// filepath: includes/class-simple-ecommerce.php
-
 class Simple_Ecommerce {
     
     private function load_dependencies() {
@@ -19,8 +17,8 @@ class Simple_Ecommerce {
     // Load admin meta boxes
     require_once SIMPLE_ECOMMERCE_DIR . 'includes/admin/product-metabox.php';
     require_once SIMPLE_ECOMMERCE_DIR . 'includes/admin/order-metabox.php';
+    //Load widgets
     
-    require_once SIMPLE_ECOMMERCE_DIR . 'includes/widgets/class-mini-cart-widget.php';
     // Load helpers
     require_once SIMPLE_ECOMMERCE_DIR . 'includes/class-simple-ecommerce-helpers.php';
 }

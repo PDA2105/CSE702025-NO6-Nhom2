@@ -25,7 +25,7 @@ jQuery(document).ready(function($) {
         }
     }
     
-    // Update price on form submit for products
+    // Update price on form submit for products 
     if ($('body').hasClass('post-type-product')) {
         $('form#post').on('submit', function() {
             var price = updatePrice();

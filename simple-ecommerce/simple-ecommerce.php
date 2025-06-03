@@ -4,11 +4,9 @@
  */
 /*
 Plugin Name: Simple Ecommerce
-Plugin URI: https://example.com/simple-ecommerce
 Description: A simple e-commerce plugin for WordPress with custom post types and taxonomies
 Version: 1.0.0
-Author: Your Name
-Author URI: https://example.com
+Author: ttung
 Text Domain: simple-ecommerce
 */
 
@@ -48,3 +46,19 @@ add_action('wp_enqueue_scripts', function() {
     wp_enqueue_script('simple-ecommerce', plugins_url('public/js/simple-ecommerce.js', dirname(__FILE__)), array('jquery'), null, true);
     wp_enqueue_script('simple-ecommerce-product', plugins_url('public/js/simple-ecommerce-product.js', dirname(__FILE__)), array('jquery'), null, true);
 });
+
+add_action('wp_enqueue_scripts', function() {
+    wp_enqueue_script(
+        'simple-ecommerce',
+        plugins_url('public/js/simple-ecommerce.js', __FILE__),
+        array('jquery'),
+        null,
+        true
+    );
+
+    wp_localize_script('simple-ecommerce', 'simple_ajax_object', [
+        'ajax_url' => admin_url('admin-ajax.php'),
+        'nonce'    => wp_create_nonce('remove-from-cart')
+    ]);
+});
+
