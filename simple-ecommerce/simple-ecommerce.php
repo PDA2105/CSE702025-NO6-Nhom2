@@ -4,7 +4,11 @@
  */
 /*
 Plugin Name: Simple Ecommerce
+<<<<<<< HEAD
 Description: Minimum viable product for an ecommerce plugin.
+=======
+Description: A simple e-commerce plugin for WordPress with custom post types and taxonomies
+>>>>>>> 76b0bef22025c284c5c2fff027b881ee20484c4d
 Version: 1.0.0
 Author: ttung
 Text Domain: simple-ecommerce

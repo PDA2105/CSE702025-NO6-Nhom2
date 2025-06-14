@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php
 
 class Simple_Ecommerce_Order_Meta_Box
@@ -239,3 +240,5 @@ class Simple_Ecommerce_Order_Meta_Box
         }
     }
 }
+=======
+>>>>>>> 76b0bef22025c284c5c2fff027b881ee20484c4d

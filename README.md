@@ -9,9 +9,22 @@
 
 
 # 1. Giới Thiệu:
-IStore là nền tảng thương mại điện tử chuyên cung cấp các sản phẩm chính hãng của Apple như iPhone, iPad, MacBook, Apple Watch, AirPods, cùng với các phụ kiện tương thích. Website hỗ trợ người dùng dễ dàng tìm kiếm, xem chi tiết sản phẩm, thêm vào giỏ hàng và thanh toán trực tuyến. 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/4b580671-c406-478e-8580-6b25eef90767" alt="iStore Logo">
+</p>
 
-![z6603021259789_fcc2948a78d3edc872e51f00dec3cab8](https://github.com/user-attachments/assets/82d3061b-9cd8-4991-8108-1499388e23f3)
+  <b>iStore</b> là nền tảng thương mại điện tử chuyên cung cấp các sản phẩm chính hãng của Apple như iPhone, iPad, MacBook, Apple Watch, AirPods, cùng với các phụ kiện tương thích.
+  Website hỗ trợ người dùng dễ dàng tìm kiếm, xem chi tiết sản phẩm, thêm vào giỏ hàng và thanh toán trực tuyến.
+
+# 2. Công Cụ Phát Triển:
+  * Backend: PHP
+  * CMS:Wordpress 
+  * Frontend: HTML, CSS, JS
+  * Database: MySQL
+  * Icon: Font Awesome
+       
+  
+
 
 
 
