@@ -4,9 +4,17 @@ $current_orderby = isset($atts['orderby']) ? $atts['orderby'] : 'date';
 $current_order = isset($atts['order']) ? $atts['order'] : 'DESC';
 ?>
 <div class="simple-ecommerce-products columns-<?php echo esc_attr($atts['columns']); ?>">
+<<<<<<< HEAD
+
+    <!-- Product Toolbar -->
+    <div class="product-toolbar">
+        <div class="toolbar-left"> 
+            <span class="results-count">
+=======
     
     <!-- Product Toolbar -->
     <div class="product-toolbar">        <div class="toolbar-left">            <span class="results-count">
+>>>>>>> 76b0bef22025c284c5c2fff027b881ee20484c4d
                 <?php if ($products->have_posts()): ?>
                     Hiển thị <?php echo $products->post_count; ?> trong số <?php echo $products->found_posts; ?> sản phẩm
                 <?php else: ?>
@@ -28,12 +36,15 @@ $current_order = isset($atts['order']) ? $atts['order'] : 'DESC';
                     <option value="date_ASC" <?php selected($current_orderby . '_' . $current_order, 'date_ASC'); ?>>
                         Cũ nhất
                     </option>
+<<<<<<< HEAD
+=======
                     <!-- <option value="title_ASC" <?php selected($current_orderby . '_' . $current_order, 'title_ASC'); ?>>
                         Tên A-Z
                     </option>
                     <option value="title_DESC" <?php selected($current_orderby . '_' . $current_order, 'title_DESC'); ?>>
                         Tên Z-A
                     </option> -->
+>>>>>>> 76b0bef22025c284c5c2fff027b881ee20484c4d
                     <option value="meta_value_num_ASC" <?php selected($current_orderby . '_' . $current_order, 'meta_value_num_ASC'); ?>>
                         Giá thấp đến cao
                     </option>
