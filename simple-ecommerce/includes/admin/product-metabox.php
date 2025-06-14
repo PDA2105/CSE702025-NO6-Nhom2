@@ -45,8 +45,7 @@ class Simple_Ecommerce_Product_Meta_Box
         $short_description = get_post_meta($post->ID, '_short_description', true);
         $product_status = get_post_meta($post->ID, '_product_status', true);
         $gallery_images = get_post_meta($post->ID, '_product_gallery', true);
-        
-        // Get categories
+      
         $categories = get_terms('product_category', array('hide_empty' => false));
         $selected_categories = wp_get_post_terms($post->ID, 'product_category', array('fields' => 'ids'));
         ?>

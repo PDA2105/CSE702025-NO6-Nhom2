@@ -2,11 +2,10 @@
 
 
 class Simple_Ecommerce_Product
-{
-
-    public function __construct()
+{    public function __construct()
     {
         add_action('init', array($this, 'register_product_post_type'));
+        add_action('init', array($this, 'register_product_taxonomy'));
     }
 
     public function register_product_post_type()
@@ -71,6 +70,34 @@ class Simple_Ecommerce_Product
             'show_in_rest' => true,
             'single' => true,
             'type' => 'string',
+        ));
+    }
+
+    public function register_product_taxonomy()
+    {
+        register_taxonomy('product_category', 'product', array(
+            'labels' => array(
+                'name' => 'Product Categories',
+                'singular_name' => 'Product Category',
+                'menu_name' => 'Categories',
+                'all_items' => 'All Categories',
+                'edit_item' => 'Edit Category',
+                'view_item' => 'View Category',
+                'update_item' => 'Update Category',
+                'add_new_item' => 'Add New Category',
+                'new_item_name' => 'New Category Name',
+                'search_items' => 'Search Categories',
+                'not_found' => 'No categories found',
+            ),
+            'public' => true,
+            'hierarchical' => true,
+            'show_ui' => true,
+            'show_admin_column' => true,
+            'show_in_nav_menus' => true,
+            'show_tagcloud' => true,
+            'query_var' => true,
+            'rewrite' => array('slug' => 'product-category'),
+            'show_in_rest' => true,
         ));
     }
 

@@ -4,7 +4,7 @@
  */
 /*
 Plugin Name: Simple Ecommerce
-Description: A simple e-commerce plugin for WordPress with custom post types and taxonomies
+Description: Minimum viable product for an ecommerce plugin.
 Version: 1.0.0
 Author: ttung
 Text Domain: simple-ecommerce
@@ -38,27 +38,4 @@ function run_simple_ecommerce() {
     $plugin->run();
 }
 run_simple_ecommerce();
-
-// Đảm bảo CSS/JS plugin luôn được nhúng trên frontend
-add_action('wp_enqueue_scripts', function() {
-    wp_enqueue_style('simple-ecommerce', plugins_url('public/css/simple-ecommerce.css', dirname(__FILE__)), array(), null);
-    wp_enqueue_style('simple-ecommerce-product', plugins_url('public/css/simple-ecommerce-product.css', dirname(__FILE__)), array(), null);
-    wp_enqueue_script('simple-ecommerce', plugins_url('public/js/simple-ecommerce.js', dirname(__FILE__)), array('jquery'), null, true);
-    wp_enqueue_script('simple-ecommerce-product', plugins_url('public/js/simple-ecommerce-product.js', dirname(__FILE__)), array('jquery'), null, true);
-});
-
-add_action('wp_enqueue_scripts', function() {
-    wp_enqueue_script(
-        'simple-ecommerce',
-        plugins_url('public/js/simple-ecommerce.js', __FILE__),
-        array('jquery'),
-        null,
-        true
-    );
-
-    wp_localize_script('simple-ecommerce', 'simple_ajax_object', [
-        'ajax_url' => admin_url('admin-ajax.php'),
-        'nonce'    => wp_create_nonce('remove-from-cart')
-    ]);
-});
 

@@ -22,9 +22,8 @@ $gallery_images = get_post_meta($product_data['id'], '_gallery_images', true);
         <div class="product-added-message" style="display: none;">
             <div class="message-content">
                 <span class="dashicons dashicons-yes"></span>
-                <span class="message-text">Product added to cart!</span>
-                <a href="<?php echo esc_url(home_url('/cart/')); ?>" class="view-cart-link">View Cart</a>
-                <span class="close-message">&times;</span>
+                <span class="message-text">Sản phẩm đã được thêm vào giỏ hàng!</span>
+                <a href="<?php echo esc_url(home_url('/cart/')); ?>" class="view-cart-link">Xem giỏ hàng</a>
             </div>
         </div>
     </div>
@@ -48,9 +47,31 @@ $gallery_images = get_post_meta($product_data['id'], '_gallery_images', true);
                 </div>
             <?php endif; ?>
         </div>
-
         <div class="product-summary">
-            <h1 class="product-title"><?php echo esc_html($product_data['name']); ?></h1>
+            <div class="product-header">
+                <h1 class="product-title-detail"><?php echo esc_html($product_data['name']); ?></h1>
+
+                <!-- Phần chọn khu vực nhỏ bên cạnh title -->
+                <div class="product-region-selector-compact">
+                    <div class="region-dropdown-compact">
+                        <select id="region-select" class="region-select-compact">
+                            <option value="">Chọn khu vực</option>
+                            <option value="hanoi">Hà Nội</option>
+                            <option value="hcm">TP. HCM</option>
+                            <option value="danang">Đà Nẵng</option>
+                            <option value="haiphong">Hải Phòng</option>
+                            <option value="cantho">Cần Thơ</option>
+                            <option value="other">Tỉnh khác</option>
+                        </select>
+                        <div class="region-info-compact" style="display: none;">
+                            <div class="delivery-info-compact">
+                                <span class="time-text-compact">Giao trong 2-4h</span>
+                                <span class="fee-text-compact">Phí: 25.000₫</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <?php if (!empty($categories)): ?>
                 <div class="product-categories">
@@ -58,25 +79,29 @@ $gallery_images = get_post_meta($product_data['id'], '_gallery_images', true);
                 </div>
             <?php endif; ?>
 
-            <div class="product-price">
-                <?php echo Simple_Ecommerce_Helpers::format_price($product_data['price']); ?>
+            <div class="product-price-detail">
+                <span
+                    class="current-price-detail"><?php echo number_format($product_data['sale_price'], 0, ',', '.'); ?>₫</span>
+                <span
+                    class="original-price-detail"><?php echo number_format($product_data['regular_price'], 0, ',', '.'); ?>₫</span>
             </div>
-
-            <div class="product-description">
+            <div class="vat">
+                <p>(Đã bao gồm VAT)</p>
+            </div>
+            <div class="product-stock in-stock">
+                <span class="dashicons dashicons-yes"></span> Còn Hàng
+                <?php if ($product_data['stock'] < 10): ?>
+                    (Only <?php echo esc_html($product_data['stock']); ?> left)
+                <?php endif; ?>
+            </div>
+            <!-- <div class="product-description">
                 <?php echo wpautop($product_data['description']); ?>
-            </div>
+            </div> -->
 
             <?php if ($product_data['stock'] > 0): ?>
-                <div class="product-stock in-stock">
-                    <span class="dashicons dashicons-yes"></span> In Stock
-                    <?php if ($product_data['stock'] < 10): ?>
-                        (Only <?php echo esc_html($product_data['stock']); ?> left)
-                    <?php endif; ?>
-                </div>
-
                 <div class="add-to-cart-form">
                     <div class="quantity-input">
-                        <label for="product-quantity">Quantity:</label>
+                        <label for="product-quantity">Số lượng:</label>
                         <div class="quantity-controls">
                             <button type="button" class="quantity-btn minus">-</button>
                             <input type="number" id="product-quantity" class="quantity" value="1" min="1"
@@ -84,15 +109,102 @@ $gallery_images = get_post_meta($product_data['id'], '_gallery_images', true);
                             <button type="button" class="quantity-btn plus">+</button>
                         </div>
                     </div>
+                    <div class="uu-dai">
+                        <p class="title-uu-dai">Ưu đãi</p>
+                        <div class="content-uu-dai">
+                            <div class="uu-dai-item">
+                                <div class="uu-dai-icon">
+                                    <span class="dashicons dashicons-cart"></span>
+                                </div>
+                                <div class="uu-dai-text">
+                                    <p><strong>Miễn phí vận chuyển</strong> cho đơn hàng từ 500.000₫</p>
+                                </div>
+                            </div>
 
-                    <button class="add-to-cart-btn" data-product-id="<?php echo esc_attr($product_data['id']); ?>"
-                        data-nonce="<?php echo wp_create_nonce('simple_ecommerce_nonce'); ?>">
-                        <span class="dashicons dashicons-cart"></span> Add to Cart
-                    </button>
+                            <div class="uu-dai-item">
+                                <div class="uu-dai-icon">
+                                    <span class="dashicons dashicons-money-alt"></span>
+                                </div>
+                                <div class="uu-dai-text">
+                                    <p><strong>Giảm 5%</strong> khi mua từ 2 sản phẩm trở lên</p>
+                                </div>
+                            </div>
+
+                            <div class="uu-dai-item">
+                                <div class="uu-dai-icon">
+                                    <span class="dashicons dashicons-awards"></span>
+                                </div>
+                                <div class="uu-dai-text">
+                                    <p><strong>Tích điểm thưởng</strong> 2% giá trị đơn hàng</p>
+                                </div>
+                            </div>
+
+                            <div class="uu-dai-item">
+                                <div class="uu-dai-icon">
+                                    <span class="dashicons dashicons-businessman"></span>
+                                </div>
+                                <div class="uu-dai-text">
+                                    <p><strong>Bảo hành 12 tháng</strong> chính hãng</p>
+                                </div>
+                            </div>
+
+                            <div class="uu-dai-item">
+                                <div class="uu-dai-icon">
+                                    <span class="dashicons dashicons-clock"></span>
+                                </div>
+                                <div class="uu-dai-text">
+                                    <p><strong>Giao hàng nhanh</strong> trong 2-4 giờ nội thành</p>
+                                </div>
+                            </div>
+
+                            <div class="uu-dai-item">
+                                <div class="uu-dai-icon">
+                                    <span class="dashicons dashicons-update"></span>
+                                </div>
+                                <div class="uu-dai-text">
+                                    <p><strong>Đổi trả miễn phí</strong> trong 7 ngày</p>
+                                </div>
+                            </div>
+
+
+                            <div class="uu-dai-item">
+                                <div class="uu-dai-icon">
+                                    <span class="dashicons dashicons-star-filled"></span>
+                                </div>
+                                <div class="uu-dai-text">
+                                    <p><strong>Ưu đãi thành viên VIP</strong> giảm thêm 3% cho lần mua tiếp theo</p>
+                                </div>
+                            </div>
+
+                            <div class="uu-dai-item">
+                                <div class="uu-dai-icon">
+                                    <span class="dashicons dashicons-heart"></span>
+                                </div>
+                                <div class="uu-dai-text">
+                                    <p><strong>Quà tặng đặc biệt</strong> cho đơn hàng trên 1.000.000₫</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="buttons">
+                        <button class="add-to-cart-btn" data-product-id="<?php echo esc_attr($product_data['id']); ?>"
+                            data-nonce="<?php echo wp_create_nonce('simple_ecommerce_nonce'); ?>">
+                            <span class="dashicons dashicons-cart"></span> Thêm vào giỏ hàng
+                        </button>
+
+                        <button class="mua-ngay-btn">
+                            Mua ngay
+                        </button>
+                        <button class="change">
+                            Thu cũ đổi mới
+                        </button>
+
+                    </div>
+
                 </div>
             <?php else: ?>
                 <div class="product-stock out-of-stock">
-                    <span class="dashicons dashicons-no"></span> Out of Stock
+                    <span class="dashicons dashicons-no"></span> Hết hàng
                 </div>
             <?php endif; ?>
 
@@ -155,3 +267,50 @@ $gallery_images = get_post_meta($product_data['id'], '_gallery_images', true);
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const regionSelect = document.getElementById('region-select');
+        const regionInfo = document.querySelector('.region-info-compact');
+        const timeText = document.querySelector('.time-text-compact');
+        const feeText = document.querySelector('.fee-text-compact');
+        const regionData = {
+            'hanoi': {
+                time: 'Giao trong 2-4h',
+                fee: 'Miễn phí'
+            },
+            'hcm': {
+                time: 'Giao trong 2-4h',
+                fee: 'Miễn phí'
+            },
+            'danang': {
+                time: 'Giao trong 4-6h',
+                fee: '25.000₫'
+            },
+            'haiphong': {
+                time: 'Giao trong 6-8h',
+                fee: '30.000₫'
+            },
+            'cantho': {
+                time: 'Giao trong 1-2 ngày',
+                fee: '45.000₫'
+            },
+            'other': {
+                time: 'Giao trong 2-3 ngày',
+                fee: '50.000₫'
+            }
+        };
+
+        regionSelect.addEventListener('change', function () {
+            const selectedValue = this.value;
+            if (selectedValue && regionData[selectedValue]) {
+                const data = regionData[selectedValue];
+                timeText.textContent = data.time;
+                feeText.textContent = 'Phí: ' + data.fee;
+                regionInfo.style.display = 'block';
+            } else {
+                regionInfo.style.display = 'none';
+            }
+        });
+    });
+</script>

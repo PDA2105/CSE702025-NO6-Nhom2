@@ -64,13 +64,13 @@ class Simple_Ecommerce_Order_Meta_Box
                 <label for="_order_status"><?php _e('Order Status:', 'simple-ecommerce'); ?></label>
                 <select id="_order_status" name="_order_status" class="widefat">
                     <option value="pending" <?php selected($order_status, 'pending'); ?>>
-                        <?php _e('Pending', 'simple-ecommerce'); ?></option>
+                        <?php _e('Chờ xử lý', 'simple-ecommerce'); ?></option>
                     <option value="processing" <?php selected($order_status, 'processing'); ?>>
-                        <?php _e('Processing', 'simple-ecommerce'); ?></option>
+                        <?php _e('Đang xử lý', 'simple-ecommerce'); ?></option>
                     <option value="completed" <?php selected($order_status, 'completed'); ?>>
-                        <?php _e('Completed', 'simple-ecommerce'); ?></option>
+                        <?php _e('Hoàn Thành', 'simple-ecommerce'); ?></option>
                     <option value="cancelled" <?php selected($order_status, 'cancelled'); ?>>
-                        <?php _e('Cancelled', 'simple-ecommerce'); ?></option>
+                        <?php _e('Đã Hủy', 'simple-ecommerce'); ?></option>
                 </select>
             </div>
 

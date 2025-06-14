@@ -31,12 +31,13 @@ class Simple_Ecommerce_Cart_Controller
         $quantity = isset($_POST['quantity']) ? intval($_POST['quantity']) : 1;
 
         if ($product_id > 0) {
-            $result = $this->cart->add_item($product_id, $quantity);
-
-            if ($result) {
+            $result = $this->cart->add_item($product_id, $quantity);            if ($result) {
+                $cart_data = $this->cart->get_cart();
                 wp_send_json_success(array(
                     'success' => true,
-                    'message' => 'Product added to cart successfully!'
+                    'message' => 'Product added to cart successfully!',
+                    'cart_count' => $cart_data['count'],
+                    'cart_total' => $cart_data['total']
                 ));
             } else {
                 wp_send_json_error(array('message' => 'Failed to add product to cart'));
@@ -44,18 +45,29 @@ class Simple_Ecommerce_Cart_Controller
         } else {
             wp_send_json_error(array('message' => 'Invalid product ID'));
         }
-    }
-
+    }   
     public function ajax_remove_from_cart()
     {
-        check_ajax_referer('simple_ecommerce_nonce', 'nonce');
+        // Check for different nonce formats
+        $nonce_verified = false;
+        
+        if (isset($_POST['nonce'])) {
+            $nonce_verified = wp_verify_nonce($_POST['nonce'], 'simple_ecommerce_nonce');
+        }
+        
+        if (!$nonce_verified && isset($_POST['security'])) {
+            $nonce_verified = wp_verify_nonce($_POST['security'], 'remove-from-cart');
+        }
+        
+        if (!$nonce_verified) {
+            wp_send_json_error(array('message' => 'Security check failed'));
+            return;
+        }
 
         $product_id = isset($_POST['product_id']) ? intval($_POST['product_id']) : 0;
 
         if ($product_id > 0) {
-            $result = $this->cart->remove_item($product_id);
-
-            if ($result) {
+            $result = $this->cart->remove_item($product_id);            if ($result) {
                 $cart_data = $this->cart->get_cart();
                 wp_send_json_success(array(
                     'success' => true,
@@ -64,6 +76,7 @@ class Simple_Ecommerce_Cart_Controller
                         'total' => $cart_data['total'],
                         'count' => $cart_data['count'],
                     ),
+                    'cart_count' => $cart_data['count']
                 ));
             } else {
                 wp_send_json_error(array('message' => 'Failed to remove product'));
@@ -88,8 +101,7 @@ class Simple_Ecommerce_Cart_Controller
                 $item_subtotal = 0;
                 if (isset($cart_data['items'][$product_id])) {
                     $item_subtotal = $cart_data['items'][$product_id]['subtotal'];
-                }
-                wp_send_json_success(array(
+                }                wp_send_json_success(array(
                     'success' => true,
                     'subtotal' => $item_subtotal,
                     'cart' => array(
@@ -97,6 +109,7 @@ class Simple_Ecommerce_Cart_Controller
                         'total' => $cart_data['total'],
                         'count' => $cart_data['count'],
                     ),
+                    'cart_count' => $cart_data['count']
                 ));
             } else {
                 wp_send_json_error(array('message' => 'Failed to update cart'));

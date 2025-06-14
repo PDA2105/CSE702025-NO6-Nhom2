@@ -51,7 +51,8 @@ $formatted_address = Simple_Ecommerce_Helpers::format_shipping_address($shipping
         <div class="order-items">
             <?php if (is_array($order_items) && !empty($order_items)): ?>
                 <?php foreach ($order_items as $item): ?>
-                    <div class="order-item">                        <div class="item-image">
+                    <div class="order-item">
+                        <div class="item-image">
                             <?php
                             $product_id = isset($item['id']) ? $item['id'] : 0;
                             $image_url = get_the_post_thumbnail_url($product_id, 'thumbnail');
@@ -63,7 +64,7 @@ $formatted_address = Simple_Ecommerce_Helpers::format_shipping_address($shipping
                         </div>
                         <div class="item-name-qty">
                             <span class="item-name"><?php echo esc_html($item['name']); ?></span>
-                            <span class="item-qty">x<?php echo esc_html($item['quantity']); ?></span>
+                            <span class="item-qty">Số lượng: <?php echo esc_html($item['quantity']); ?></span>
                         </div>
                         <div class="item-price">
                             <?php
@@ -90,7 +91,7 @@ $formatted_address = Simple_Ecommerce_Helpers::format_shipping_address($shipping
                 <p><strong>Ngân hàng:</strong> MB BANK</p>
                 <p><strong>Số tài khoản:</strong> 0375401903</p>
                 <p><strong>Chủ tài khoản:</strong> DO THANH TUNG</p>
-                <p><strong>Nội dung:</strong> THANHTOAN#<?php echo esc_html($order_id); ?></p>
+                <p><strong>Nội dung:</strong> THANHTOAN<?php echo esc_html($order_id); ?></p>
             </div>
         <?php else: ?>
             <p>Chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất để xác nhận đơn hàng.</p>
@@ -98,6 +99,6 @@ $formatted_address = Simple_Ecommerce_Helpers::format_shipping_address($shipping
     </div>
 
     <div class="thank-you-actions">
-        <a href="<?php echo esc_url(home_url('/shop')); ?>" class="button continue-shopping">Tiếp tục mua sắm</a>
+        <a href="<?php echo esc_url(home_url('/shop')); ?>" class="continue-shopping">Tiếp tục mua sắm</a>
     </div>
 </div>

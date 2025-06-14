@@ -59,6 +59,18 @@ if (isset($_POST['update_profile_submit'])) {
     }
 }
 
+// Function để chuyển đổi status sang tiếng Việt
+function get_order_status_label($status) {
+    $status_labels = array(
+        'pending' => 'Chờ xử lý',
+        'processing' => 'Đang xử lý',
+        'completed' => 'Hoàn thành',
+        'cancelled' => 'Đã hủy'
+    );
+    
+    return isset($status_labels[$status]) ? $status_labels[$status] : ucfirst($status);
+}
+
 $current_user = wp_get_current_user();
 ?>
 
@@ -66,7 +78,7 @@ $current_user = wp_get_current_user();
     <div class="account-navigation">
         <ul>
             <li><a href="#dashboard" class="active">Dashboard</a></li>
-            <li><a href="#orders">Orders</a></li>
+            <li><a href="<?php echo site_url('/order/');?>">Đơn hàng của bạn<a></li>
             <li><a href="#profile">Edit Profile</a></li>
             <li><a href="<?php echo wp_logout_url(home_url()); ?>">Logout</a></li>
         </ul>
@@ -98,11 +110,10 @@ $current_user = wp_get_current_user();
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($orders as $order): ?>
-                            <tr>
+                        <?php foreach ($orders as $order): ?>                            <tr>
                                 <td>#<?php echo esc_html($order['id']); ?></td>
                                 <td><?php echo esc_html(date('F j, Y', strtotime($order['date']))); ?></td>
-                                <td><?php echo esc_html(ucfirst($order['status'])); ?></td>
+                                <td><?php echo esc_html(get_order_status_label($order['status'])); ?></td>
                                 <td><?php echo Simple_Ecommerce_Helpers::format_price($order['total']); ?></td>
                                 <td>
                                     <a

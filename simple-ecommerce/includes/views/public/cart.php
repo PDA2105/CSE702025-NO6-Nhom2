@@ -5,11 +5,9 @@ $cart_items = $cart->get_cart();
 
 
 $subtotal = 0;
-$total_quantity = 0;
 if ($cart_items && !empty($cart_items['items'])) {
     foreach ($cart_items['items'] as $item) {
         $subtotal += $item['subtotal'];
-        $total_quantity += $item['quantity'];
     }
 }
 
@@ -44,11 +42,8 @@ function get_product_image_url($product_id)
                                     stroke-linejoin="round" />
                             </svg>
                             Tiếp tục mua sắm
-                        </a>
-                        <h1 class="page-title">Giỏ hàng của bạn</h1>
-                        <div class="cart-count">
-                            <span id="cart-items-count"><?php echo $total_quantity; ?></span> sản phẩm
-                        </div>
+                        </a>                        <h1 class="page-title">Giỏ hàng của bạn</h1>
+                        
                     </div>
                 </div>
                 <div class="cart-layout">
@@ -117,14 +112,11 @@ function get_product_image_url($product_id)
                                     class="total-price"><?php echo simple_format_price($cart_items['total']); ?></span>
                             </div>
 
-                            <div class="promo-section">
-                                <div class="promo-input-group">
+                            <div class="promo-section">                                <div class="promo-input-group">
                                     <input type="text" class="promo-input" placeholder="Nhập mã giảm giá" id="promoCode">
-                                    <button class="promo-btn" onclick="applyPromoCode()">Áp dụng</button>
+                                    <button class="promo-btn">Áp dụng</button>
                                 </div>
-                            </div>
-
-                            <button class="checkout-btn" onclick="proceedToCheckout()">
+                            </div>                            <button class="checkout-btn">
                                 Thanh toán
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                                     <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -161,17 +153,38 @@ function get_product_image_url($product_id)
 
     <div class="modal" id="successModal">
         <div class="modal-content">
-            <div class="modal-icon success">✓</div>
-            <h3>Thành công!</h3>
+            <div class="modal-icon success">✓</div>            <h3>Thành công!</h3>
             <p id="modalMessage">Thao tác đã được thực hiện thành công</p>
-            <button class="modal-btn" onclick="closeModal()">Đóng</button>
+            <button class="modal-btn">Đóng</button>
         </div>
-    </div>
+    </div>    <script>
+        jQuery(document).ready(function($) {
+            // Helper function to format price
+            function formatPrice(amount) {
+                return Number(amount).toLocaleString('vi-VN') + 'đ';
+            }
 
-    <script>
+            // Function to update header cart count
+            function updateHeaderCartCount(count) {
+                console.log('Updating header cart count to:', count);
+                var cartCountElement = $('.cart-icon .cart-count');
+                console.log('Found cart count element:', cartCountElement.length);
+                
+                if (cartCountElement.length > 0) {
+                    cartCountElement.text(count);
+                    cartCountElement.addClass('updated');
+                    
+                    setTimeout(function() {
+                        cartCountElement.removeClass('updated');
+                    }, 600);
+                    console.log('Cart count updated successfully');
+                } else {
+                    console.log('Cart count element not found');
+                }
+            }
 
-        function updateQuantity(productId, newQty, qtyInput, priceDiv, cartItem) {
-            jQuery.ajax({
+            function updateQuantity(productId, newQty, qtyInput, priceDiv, cartItem) {
+            $.ajax({
                 url: '<?php echo admin_url('admin-ajax.php'); ?>',
                 type: 'POST',
                 data: {
@@ -180,16 +193,19 @@ function get_product_image_url($product_id)
                     product_id: productId,
                     quantity: newQty
                 },
-                success: function (response) {
-                    if (response.success) {
+                success: function (response) {                    if (response.success) {
                         qtyInput.value = newQty;
                         if (response.data && response.data.subtotal) {
                             priceDiv.textContent = formatPrice(response.data.subtotal);
                         }
+                        
                         if (response.data && response.data.cart) {
-                            document.getElementById('subtotal').textContent = formatPrice(response.data.cart.subtotal);
-                            document.getElementById('total').textContent = formatPrice(response.data.cart.total);
-                            document.getElementById('cart-items-count').textContent = response.data.cart.count;
+                            $('#subtotal').text(formatPrice(response.data.cart.subtotal));
+                            $('#total').text(formatPrice(response.data.cart.total));
+                            $('#cart-items-count').text(response.data.cart.count);
+                            
+                            // Update cart counter in header
+                            updateHeaderCartCount(response.data.cart.count);
                         }
                         if (newQty === 0) {
                             cartItem.remove();
@@ -204,11 +220,9 @@ function get_product_image_url($product_id)
                 error: function () {
                     alert('Có lỗi xảy ra khi cập nhật giỏ hàng');
                 }
-            });
-        }
-
-        function removeItem(productId, cartItem) {
-            jQuery.ajax({
+            });        }        function removeItem(productId, cartItem) {
+            console.log('Removing item:', productId);
+            $.ajax({
                 url: '<?php echo admin_url('admin-ajax.php'); ?>',
                 type: 'POST',
                 data: {
@@ -217,41 +231,38 @@ function get_product_image_url($product_id)
                     product_id: productId
                 },
                 success: function (response) {
-                    if (response.success) {
-                        cartItem.remove();
+                    console.log('Remove response:', response);                    if (response.success) {
+                        $(cartItem).remove();
                         if (response.data && response.data.cart) {
-                            document.getElementById('subtotal').textContent = formatPrice(response.data.cart.subtotal);
-                            document.getElementById('total').textContent = formatPrice(response.data.cart.total);
-                            document.getElementById('cart-items-count').textContent = response.data.cart.count;
+                            $('#subtotal').text(formatPrice(response.data.cart.subtotal));
+                            $('#total').text(formatPrice(response.data.cart.total));
+                            $('#cart-items-count').text(response.data.cart.count);
+                            
+                            // Update cart counter in header
+                            updateHeaderCartCount(response.data.cart.count);
                         }
                         if (response.data && response.data.cart && response.data.cart.count === 0) {
                             location.reload();
                         }
                     } else {
+                        console.error('Remove failed:', response);
                         alert('Không thể xóa sản phẩm');
                     }
                 },
-                error: function () {
+                error: function (xhr, status, error) {
+                    console.error('AJAX error:', xhr.responseText);
                     alert('Có lỗi xảy ra khi xóa sản phẩm');
-                }
-            });
-        }
-
-        function formatPrice(price) {
-            return new Intl.NumberFormat('vi-VN').format(price) + '₫';
-        }
-
-
-        function applyPromoCode() {
-            const promoInput = document.getElementById('promoCode');
-            const code = promoInput.value.trim().toUpperCase();
+                }            });
+        }        function applyPromoCode() {
+            var $promoInput = $('#promoCode');
+            var code = $promoInput.val().trim().toUpperCase();
 
             if (!code) {
                 showModal('Lỗi', 'Vui lòng nhập mã giảm giá');
                 return;
             }
 
-            jQuery.ajax({
+            $.ajax({
                 url: '<?php echo admin_url('admin-ajax.php'); ?>',
                 type: 'POST',
                 data: {
@@ -262,120 +273,126 @@ function get_product_image_url($product_id)
                 },
                 success: function (response) {
                     if (response.success) {
-                        const discount = response.data.discount;
-                        const total = <?php echo $subtotal; ?> - discount;
+                        var discount = response.data.discount;
+                        var total = <?php echo $subtotal; ?> - discount;
 
-                        document.getElementById('discount').textContent = `-${formatPrice(discount)}`;
-                        document.getElementById('total').textContent = formatPrice(total);
+                        $('#discount').text('-' + formatPrice(discount));
+                        $('#total').text(formatPrice(total));
 
-                        promoInput.value = '';
-                        showModal('Thành công!', `${response.data.description} đã được áp dụng`);
+                        $promoInput.val('');
+                        showModal('Thành công!', response.data.description + ' đã được áp dụng');
 
-
-                        const promoSection = document.querySelector('.promo-section');
-                        promoSection.classList.add('promo-applied');
-                        setTimeout(() => {
-                            promoSection.classList.remove('promo-applied');
+                        var $promoSection = $('.promo-section');
+                        $promoSection.addClass('promo-applied');
+                        setTimeout(function() {
+                            $promoSection.removeClass('promo-applied');
                         }, 1000);
                     } else {
                         showModal('Lỗi', response.data.message || 'Mã giảm giá không hợp lệ');
-                        promoInput.classList.add('error');
-                        setTimeout(() => promoInput.classList.remove('error'), 2000);
+                        $promoInput.addClass('error');
+                        setTimeout(function() {
+                            $promoInput.removeClass('error');
+                        }, 2000);
                     }
                 },
                 error: function () {
                     showModal('Lỗi', 'Có lỗi xảy ra khi áp dụng mã giảm giá');
                 }
             });
-        }
-
-        function proceedToCheckout() {
-            if (parseInt(document.getElementById('cart-items-count').textContent, 10) === 0) {
+        }        function proceedToCheckout() {
+            if (parseInt($('#cart-items-count').text(), 10) === 0) {
                 showModal('Thông báo', 'Giỏ hàng của bạn đang trống');
                 return;
             }
-            const checkoutBtn = document.querySelector('.checkout-btn');
-            const originalText = checkoutBtn.innerHTML;
-            checkoutBtn.innerHTML = `
-            <div class="loading-spinner"></div>
-            Đang xử lý...
-        `;
-            checkoutBtn.disabled = true;
-            setTimeout(() => {
+            var $checkoutBtn = $('.checkout-btn');
+            var originalText = $checkoutBtn.html();
+            $checkoutBtn.html(`
+                <div class="loading-spinner"></div>
+                Đang xử lý...
+            `).prop('disabled', true);
+            
+            setTimeout(function() {
                 window.location.href = '<?php echo home_url('/checkout/'); ?>';
             }, 1000);
         }
+
         function showModal(title, message) {
-            const modal = document.getElementById('successModal');
-            const modalTitle = modal.querySelector('h3');
-            const modalMessage = document.getElementById('modalMessage');
+            var $modal = $('#successModal');
+            $modal.find('h3').text(title);
+            $('#modalMessage').text(message);            $modal.show();
 
-            modalTitle.textContent = title;
-            modalMessage.textContent = message;
-            modal.style.display = 'flex';
-
-            setTimeout(() => {
+            setTimeout(function() {
                 closeModal();
             }, 3000);
+        }function closeModal() {
+            $('#successModal').hide();
         }
 
-        function closeModal() {
-            document.getElementById('successModal').style.display = 'none';
-        }
+        // Initialize event listeners using jQuery
+        $('.cart-item').each(function() {
+            var $item = $(this);
+            var productId = $item.data('product-id');
+            var $minusBtn = $item.find('.qty-btn.minus');
+            var $plusBtn = $item.find('.qty-btn.plus');
+            var qtyInput = $item.find('.qty')[0];
+            var priceDiv = $item.find('.current-price')[0];
 
-        document.addEventListener('DOMContentLoaded', function () {
-            document.querySelectorAll('.cart-item').forEach(function (item) {
-                const productId = item.getAttribute('data-product-id');
-                const minusBtn = item.querySelector('.qty-btn.minus');
-                const plusBtn = item.querySelector('.qty-btn.plus');
-                const qtyInput = item.querySelector('.qty');
-                const priceDiv = item.querySelector('.current-price');
-                const removeBtn = item.querySelector('.remove-btn');
-
-                minusBtn.addEventListener('click', function () {
-                    let qty = parseInt(qtyInput.value, 10);
-                    if (qty > 1) {
-                        updateQuantity(productId, qty - 1, qtyInput, priceDiv, item);
-                    }
-                });
-
-                plusBtn.addEventListener('click', function () {
-                    let qty = parseInt(qtyInput.value, 10);
-                    if (qty < 10) {
-                        updateQuantity(productId, qty + 1, qtyInput, priceDiv, item);
-                    }
-                });
-
-                removeBtn.addEventListener('click', function () {
-                    removeItem(productId, item);
-                });
-            });
-
-            var checkoutBtn = document.querySelector('.checkout-btn');
-            if (checkoutBtn) {
-                checkoutBtn.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    proceedToCheckout();
-                });
-            }
-
-            document.getElementById('promoCode')?.addEventListener('keypress', function (e) {
-                if (e.key === 'Enter') {
-                    applyPromoCode();
+            $minusBtn.on('click', function() {
+                var qty = parseInt(qtyInput.value, 10);
+                if (qty > 1) {
+                    updateQuantity(productId, qty - 1, qtyInput, priceDiv, $item[0]);
                 }
             });
 
-            document.getElementById('successModal').addEventListener('click', function (e) {
-                if (e.target === this) {
-                    closeModal();
+            $plusBtn.on('click', function() {
+                var qty = parseInt(qtyInput.value, 10);
+                if (qty < 10) {
+                    updateQuantity(productId, qty + 1, qtyInput, priceDiv, $item[0]);
                 }
             });
 
-            document.addEventListener('keydown', function (e) {
-                if (e.key === 'Escape') {
-                    closeModal();
-                }
+            $item.find('.remove-btn').on('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                removeItem(productId, $item[0]);
             });
         });
+
+        // Checkout button event listener
+        $('.checkout-btn').on('click', function(e) {
+            e.preventDefault();
+            proceedToCheckout();
+        });
+
+        // Promo button event listener
+        $('.promo-btn').on('click', function(e) {
+            e.preventDefault();
+            applyPromoCode();
+        });
+
+        // Modal close button event listener  
+        $('.modal-btn').on('click', function(e) {
+            e.preventDefault();
+            closeModal();});
+
+        $('#promoCode').on('keypress', function (e) {
+            if (e.key === 'Enter') {
+                applyPromoCode();
+            }
+        });
+
+        $('#successModal').on('click', function (e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        $(document).on('keydown', function (e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        }); // End jQuery ready
     </script>
 </div>

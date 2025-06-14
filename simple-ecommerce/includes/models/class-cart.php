@@ -140,13 +140,8 @@ class Simple_Ecommerce_Cart
             // Cập nhật số lượng và tính lại subtotal
             $cart['items'][$product_id]['quantity'] = $quantity;
             $cart['items'][$product_id]['subtotal'] = (float) $cart['items'][$product_id]['price'] * $quantity;
-        }
-
-        // Tính lại tổng giá trị giỏ hàng
-        $cart['total'] = 0;
-        foreach ($cart['items'] as $item) {
-            $cart['total'] += (float) $item['subtotal'];
-        }
+        }        // Tính lại tổng giá trị giỏ hàng
+        $this->calculate_totals($cart);
 
         // Lưu giỏ hàng vào session
         $this->save_cart($cart);
@@ -157,18 +152,17 @@ class Simple_Ecommerce_Cart
     public function clear_cart()
     {
         return $this->set_empty_cart();
-    }
-
-    private function calculate_totals(&$cart)
+    }    private function calculate_totals(&$cart)
     {
         $cart['total'] = 0;
         $cart['count'] = 0;
 
         foreach ($cart['items'] as $item) {
             $cart['total'] += $item['subtotal'];
-            $cart['count'] += $item['quantity'];
+            $cart['count'] += $item['quantity']; // Đếm tổng số lượng sản phẩm
         }
-    }    public function checkout($user_data)
+    }
+    public function checkout($user_data)
     {
         $cart = $this->get_cart();
         if (!$cart || empty($cart['items'])) {
@@ -180,7 +174,7 @@ class Simple_Ecommerce_Cart
         // Tạo đơn hàng với thông tin khách hàng
         $order_model = new Simple_Ecommerce_Order();
         $order_data = array_merge($user_data, array('user_id' => $user_id));
-        
+
         $order_id = $order_model->create_order($order_data, $cart);
 
         if ($order_id) {            // Cập nhật số lượng sản phẩm
@@ -197,5 +191,4 @@ class Simple_Ecommerce_Cart
 
         return false;
     }
-
 }
