@@ -1169,7 +1169,11 @@
 /* AJAX Cart Notification Styles - New unique classes to avoid conflicts */
 .ajax-cart-popup {
   position: fixed;
+<<<<<<< HEAD
+  top: 20%;
+=======
   top: 30%;
+>>>>>>> 76b0bef22025c284c5c2fff027b881ee20484c4d
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 10000;
@@ -1387,7 +1391,11 @@
 /* Cart Notification Styles - For AJAX Add to Cart from Product Grid */
 .cart-notification {
   position: fixed;
+<<<<<<< HEAD
+  top: 20%;
+=======
   top: 30%;
+>>>>>>> 76b0bef22025c284c5c2fff027b881ee20484c4d
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 10000;
