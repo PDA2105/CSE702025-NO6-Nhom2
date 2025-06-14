@@ -1,5 +1,4 @@
 <?php
-<<<<<<< HEAD
 /**
  * Simple Ecommerce Image Slider Shortcode
  * 
@@ -200,7 +199,7 @@ new SE_Banner_Slider_Shortcode();
  * - To change height: modify the 'height' attribute in shortcode
  * - Example: [se_banner_slider image_ids="123,456" width="1000" height="300"]
  */
-=======
+
 class Simple_Image_Slider_Shortcode
 {    public function __construct()
     {
@@ -364,4 +363,4 @@ class Simple_Image_Slider_Shortcode
 
 // Khởi tạo class
 new Simple_Image_Slider_Shortcode();
->>>>>>> 76b0bef22025c284c5c2fff027b881ee20484c4d
+

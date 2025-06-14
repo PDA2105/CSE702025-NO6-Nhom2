@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 /**
  * SE Banner Slider CSS
  * Modern slide transitions with smooth animations
@@ -128,8 +128,6 @@
 }
 
 /* === DOTS NAVIGATION - HÌNH TRÒN HOÀN HẢO === */
-.se-banner-dots {
-=======
 /* Simple Image Slider CSS - Fixed Version */
 .simple-image-slider-container {
     position: relative;
@@ -264,14 +262,14 @@
 
 /* Navigation Dots */
 .slider-dots {
->>>>>>> 76b0bef22025c284c5c2fff027b881ee20484c4d
+
     position: absolute;
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
     gap: 12px;
-<<<<<<< HEAD
+
     z-index: 3;
 }
 
@@ -408,7 +406,6 @@
     }
     
     .se-banner-dot {
-=======
     z-index: 10;
     padding: 8px 16px;
     background: rgba(0, 0, 0, 0.1); /* Thêm background nhẹ */
@@ -530,15 +527,15 @@
     }
     
     .dot {
->>>>>>> 76b0bef22025c284c5c2fff027b881ee20484c4d
+
         width: 10px;
         height: 10px;
     }
     
-<<<<<<< HEAD
+
     .se-banner-slide:hover img {
         transform: none; /* Disable hover zoom on mobile */
-=======
+
     .slider-dots {
         gap: 8px;
         padding: 6px 12px;
@@ -546,12 +543,12 @@
     
     .slides-wrapper {
         transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
->>>>>>> 76b0bef22025c284c5c2fff027b881ee20484c4d
+
     }
 }
 
 @media (max-width: 480px) {
-<<<<<<< HEAD
+
     .se-banner-slider {
         height: 200px; /* Even smaller on very small screens */
         border-radius: 4px;
@@ -628,7 +625,7 @@
         background: white;
     }
 }
-=======
+
     .simple-image-slider {
         height: 200px;
         border-radius: 8px;
@@ -694,4 +691,3 @@
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
->>>>>>> 76b0bef22025c284c5c2fff027b881ee20484c4d

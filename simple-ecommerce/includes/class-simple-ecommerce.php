@@ -51,17 +51,13 @@ class Simple_Ecommerce {
         $product_controller = new Simple_Ecommerce_Product_Controller();
         $cart_controller = new Simple_Ecommerce_Cart_Controller();
         $order_controller = new Simple_Ecommerce_Order_Controller();
-        $user_controller = new Simple_Ecommerce_User_Controller();
-        $import_controller = new Simple_Ecommerce_Import_Controller();// Initialize traditional widgets
-<<<<<<< HEAD
-        add_action('widgets_init', array($this, 'register_traditional_widgets'));        // Initialize shortcodes
-        $image_slider_shortcode = new SE_Banner_Slider_Shortcode();
-=======
+        $user_controller = new Simple_Ecommerce_User_Controller();        $import_controller = new Simple_Ecommerce_Import_Controller();
+        
+        // Initialize traditional widgets
         add_action('widgets_init', array($this, 'register_traditional_widgets'));
         
         // Initialize shortcodes
-        // Shortcode initialization will be added here when needed
->>>>>>> 76b0bef22025c284c5c2fff027b881ee20484c4d
+        $image_slider_shortcode = new SE_Banner_Slider_Shortcode();
         
         // Initialize admin meta boxes and enqueue admin assets
         if (is_admin()) {

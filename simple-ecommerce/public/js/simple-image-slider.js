@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 /**
  * SE Banner Slider JavaScript
  * Modern slide transitions with smooth touch/swipe support
@@ -423,7 +423,6 @@
  *    // Trigger re-initialization after AJAX content load
  *    $(document).trigger('se-banner-slider-init');
  */
-=======
 // Simple Image Slider JavaScript với hiệu ứng trượt
 // Namespace để tránh xung đột với slider khác
 const SimpleImageSlider = {
@@ -631,4 +630,3 @@ function goToSlide(slideIndex, sliderId) {
         SimpleImageSlider.goToSlide(slideIndex, sliderId);
     }
 }
->>>>>>> 76b0bef22025c284c5c2fff027b881ee20484c4d
