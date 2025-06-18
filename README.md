@@ -1,4 +1,4 @@
-#  Báo cáo dự án xây dựng plugin ecommerce MVP cùng child theme
+#  Xây dựng plugin ecommerce MVP cùng child theme
 
 |    Thành Viên     |   MSSV  |                  Email          |
 |-------------------|---------|---------------------------------|
