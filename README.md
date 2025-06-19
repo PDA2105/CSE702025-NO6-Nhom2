@@ -1,4 +1,4 @@
-#  Xây dựng ứng dụng website thương mại điện tử chuyên phân phối sản phẩm Apple(IStore)
+#  Xây dựng plugin ecommerce MVP cùng child theme
 
 |    Thành Viên     |   MSSV  |                  Email          |
 |-------------------|---------|---------------------------------|
