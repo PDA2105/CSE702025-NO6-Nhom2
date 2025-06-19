@@ -22,7 +22,38 @@
   * Frontend: HTML, CSS, JS
   * Database: MySQL
   * Icon: Font Awesome
-       
+# cấu trúc dự án:
+PDA2105-CSE702025-NO6-Nhom2/
+├── README.md
+├── assignments/
+│   ├── assignment-1/
+│   │   ├── src/
+│   │   ├── docs/
+│   │   └── README.md
+│   ├── assignment-2/
+│   └── ...
+├── labs/
+│   ├── lab-1/
+│   ├── lab-2/
+│   └── ...
+├── project/
+│   ├── src/
+│   ├── docs/
+│   ├── report/
+│   └── presentation/
+├── algorithms/
+│   ├── sorting/
+│   ├── searching/
+│   ├── graph/
+│   ├── dynamic-programming/
+│   └── greedy/
+├── docs/
+│   ├── reports/
+│   ├── presentations/
+│   └── references/
+└── utils/
+    ├── test-data/
+    └── helpers/
   
 
 
